@@ -1,0 +1,11 @@
+@startuml test
+object Foo
+map Bar {
+  abc=>
+  def=>
+}
+object Baz
+
+Bar::abc --> Baz : Label one
+Foo --> Bar::def : Label two
+@enduml
