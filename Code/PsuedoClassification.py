@@ -1,22 +1,13 @@
-import enum
-from os import name
-import matplotlib.pyplot as plt
-import numpy as np
-from numpy.random.mtrand import random_integers
 import pandas as pd
-
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.feature_selection import SelectKBest, f_classif
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
 from sklearn import metrics
-
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
-
-from numpy import nan
-
+from sklearn.neural_network import MLPClassifier, MLPRegressor
 import pickle
 
 with open('clean_data.pickle', 'rb') as handle:
@@ -65,6 +56,7 @@ X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.25, random
 
 
 
+#==========================================================================
 
 rgr_tree = DecisionTreeRegressor(random_state=22).fit(X_train, Y_train)
 Y_pred = rgr_tree.predict(X_test)
@@ -78,8 +70,7 @@ importance = rgr_tree.feature_importances_
 for i, v in enumerate(importance):
   print(f"{x.columns[i]}:\t\t{v}")
 
-
-
+#==========================================================================
 
 clf_tree = DecisionTreeClassifier(random_state=21).fit(X_train, Y_train)
 Y_pred = clf_tree.predict(X_test)
@@ -96,11 +87,7 @@ for i, v in enumerate(importance):
 
 print("\n")
 
-
-
-
-
-
+#==========================================================================
 
 clf = RandomForestClassifier(random_state=2).fit(X_train, Y_train)
 Y_pred = clf.predict(X_test)
@@ -115,11 +102,7 @@ importance = clf.feature_importances_
 for i, v in enumerate(importance):
   print(f"{x.columns[i]}:\t\t{v}")
 
-
-
-
-
-
+#==========================================================================
 
 test = SelectKBest(score_func=f_classif, k=5)
 fit = test.fit(X_train, Y_train)
@@ -129,8 +112,7 @@ for s in fit.scores_:
   print("\t\t", s)
 print(fit.get_feature_names_out())
 
-
-
+#==========================================================================
 
 rgr_tree = RandomForestRegressor(random_state=22).fit(X_train, Y_train)
 Y_pred = rgr_tree.predict(X_test)
@@ -144,7 +126,7 @@ importance = rgr_tree.feature_importances_
 for i, v in enumerate(importance):
   print(f"{x.columns[i]}:\t\t{v}")
 
-
+#==========================================================================
 
 clf = make_pipeline(StandardScaler(), SVC(gamma='auto'))
 clf.fit(X_train, Y_train)
@@ -163,8 +145,7 @@ clf.fit(kx_train, ky_train)
 print("\n\n[SVM Classifier - K Best]")
 print(clf.score(kx_test, ky_test))
 
-
-from sklearn.neural_network import MLPClassifier, MLPRegressor
+#==========================================================================
 
 clf = MLPClassifier(random_state=2)
 clf.fit(X_train, Y_train)

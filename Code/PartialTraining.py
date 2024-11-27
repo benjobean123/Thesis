@@ -1,26 +1,24 @@
 from datetime import *
 import pandas as pd
 import pickle
-
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.feature_selection import SelectKBest, f_classif
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
 from sklearn import metrics
-
-import numpy as np
 from sklearn.linear_model import SGDClassifier
 from sklearn.neural_network import MLPClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
 from sklearn.svm import SVC
-
+import timeit
 import nltk
 nltk.download('vader_lexicon')
 from nltk.sentiment import SentimentIntensityAnalyzer
 
-import timeit
 
+
+## Pull in the cleaned data .pickle file
 with open('clean_data.pickle', 'rb') as handle:
   data = pickle.load(handle)
 
@@ -95,6 +93,8 @@ y = prediction_df['Performance Rank']
 x = prediction_df.drop(columns=['Performance Rank', 'Name'])
 x2 = prediction_df.drop(columns=['Performance Rank', 'Name', 'Average Turn Taking'])
 
+## Function to train with various models
+## Arrays: x, y; Test Range: [0.5, 0.6, 0.7, 0.8, 0.9]
 def partial_training_results(x, y, test_range):
   results = {}
 
@@ -214,6 +214,7 @@ results_b = partial_training_results(x2, y, [0.5, 0.6, 0.7, 0.8, 0.9])
 # rows are labelled name, accuracy, time, feature list
 # columns correspond to each classifier/regressor entry
 
+## Output data
 for training_percent, results in results_b.items():
   file = open(f"results/{training_percent}.csv", 'w')
   header = "Name,"

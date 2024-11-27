@@ -1,8 +1,3 @@
-import enum
-from os import name
-import matplotlib.pyplot as plt
-import numpy as np
-from numpy.random.mtrand import random_integers
 import pandas as pd
 import pickle
 from numpy import nan
@@ -10,23 +5,36 @@ from numpy import nan
 xls1 = pd.ExcelFile("dataset/discourse_analysis_one.xlsx")
 xls2 = pd.ExcelFile("dataset/discourse_analysis_two.xlsx")
 
+## Read in a sheet with no expected header for each sheet in the excel
+# Read in the simulation 1 excel sheet
 sims_1 = [pd.read_excel(xls1, sheet, header=None) for sheet in xls1.sheet_names]
 sims_1.pop(0) # remove the metadata sheet
 
+# Read in the simulation 2 excel sheet
 sims_2 = [pd.read_excel(xls2, sheet) for sheet in xls2.sheet_names]
 sims_2.pop(0) # remote the metadata sheet
 
+## Combine the different simulation list and their names
 sims = sims_1 + sims_2
 sim_names = xls1.sheet_names[1:] + xls2.sheet_names[1:]
 
+## Remove duplicate
 def rn(df, suffix = '-duplicate-'):
     appendents = (suffix + df.groupby(level=0).cumcount().astype(str)).replace(suffix, '')
     return df.set_index(df.index + appendents)
 
+## Function to clean each excel sheet dataframe
 def clean_sim_data(sim_df):
+  # Label coulmns
   sim_df = sim_df.rename(columns={0:"Turn Taking", 1:"Time", 2:"Total", 3:"Simulation", 4:"SA Team"})
+
+  # Drops any rows with empty values in the turn taking coulumn
   sim_df = sim_df[sim_df["Turn Taking"].notna()]
+
+  # Drops any coulumns past 5
   sim_df = sim_df.drop(columns=sim_df.columns.values[5:])
+
+  # Format all the values in the SA team coulumn to "[" + str(x) + "]"
   sim_df['SA Team'] = sim_df['SA Team'].apply(lambda x: eval("[" + str(x) + "]"))
 
   try:
@@ -57,6 +65,7 @@ clean_sims = {}
 
 for i in range(len(sims)):
   try:
+    ## clean the dataset
     clean_sims[sim_names[i]] = clean_sim_data(sims[i])
   except Exception as e:
     print(i, sim_names[i], e)
@@ -64,5 +73,6 @@ for i in range(len(sims)):
 
 print(clean_sims[sim_names[1]])
 
+## open the .pickle file and dump the clean data into it
 with open("clean_data.pickle", 'wb') as handle:
     pickle.dump(clean_sims, handle, protocol=pickle.HIGHEST_PROTOCOL)

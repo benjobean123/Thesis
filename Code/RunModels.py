@@ -18,6 +18,8 @@ from sklearn.naive_bayes import GaussianNB, BernoulliNB
 # This number is used as the random state where applicable
 MAGIC_NUMBER = 2
 
+## Prepare data for use in the models
+
 def load_df(path):
     with open(path, 'rb') as handle:
         return pickle.load(handle)
@@ -25,6 +27,7 @@ def load_df(path):
 def df_split(df):
     return df.drop(columns=['Performance Rank', 'Name']), df['Performance Rank']
 
+## Support Vector Machine with the Radial Basis Kernel
 def svm_rbf(x_train, x_test, y_train, y_test):
     clf = svm.SVC(kernel='rbf', probability=True, C=3)
     clf.fit(x_train, y_train)
@@ -33,6 +36,8 @@ def svm_rbf(x_train, x_test, y_train, y_test):
         "Name" : "SVM RBF",
         "Accuracy": clf.score(x_test, y_test)
     }
+
+## Support Vector Machine with the Polinomial Kernel
 
 def svm_poly(x_train, x_test, y_train, y_test):
     clf = svm.SVC(kernel='poly', probability=True, C=3)
@@ -43,6 +48,8 @@ def svm_poly(x_train, x_test, y_train, y_test):
         "Accuracy": clf.score(x_test, y_test)
     }
 
+## Support Vector Machine with the Linear Kernel
+
 def svm_linear(x_train, x_test, y_train, y_test):
     clf = svm.SVC(kernel='linear', probability=True, C=3)
     clf.fit(x_train, y_train)
@@ -51,6 +58,8 @@ def svm_linear(x_train, x_test, y_train, y_test):
         "Name" : "SVM Linear",
         "Accuracy": clf.score(x_test, y_test)
     }
+
+## Naive Bayes Guassian 
 
 def gauss_nb(x_train, x_test, y_train, y_test):
     clf = GaussianNB()
@@ -61,6 +70,8 @@ def gauss_nb(x_train, x_test, y_train, y_test):
         "Accuracy": clf.score(x_test, y_test)
     }
 
+## Naive Bayes Bernoulli
+
 def complement_nb(x_train, x_test, y_train, y_test):
     clf = BernoulliNB()
     clf.fit(x_train, y_train)
@@ -70,6 +81,8 @@ def complement_nb(x_train, x_test, y_train, y_test):
         "Accuracy": clf.score(x_test, y_test)
     }
 
+## Multi Layer Perceptron
+
 def mlp_classifier(x_train, x_test, y_train, y_test):
     clf = MLPClassifier(max_iter=1000)
     clf.fit(x_train, y_train)
@@ -78,6 +91,8 @@ def mlp_classifier(x_train, x_test, y_train, y_test):
         "Name" : "MLP Classifier",
         "Accuracy": clf.score(x_test, y_test)
     }
+
+## Random Forest
 
 def rf_classifier(x_train, x_test, y_train, y_test):
     clf = RandomForestClassifier(random_state=MAGIC_NUMBER)
@@ -93,6 +108,8 @@ def rf_classifier(x_train, x_test, y_train, y_test):
     })
 
     return importances
+
+## Decision Tree
 
 def dt_classifier(x_train, x_test, y_train, y_test):
     clf = DecisionTreeClassifier(random_state=MAGIC_NUMBER)
@@ -121,6 +138,8 @@ def train_test_process(data, test_size):
     # results for each method produce a dictionary
     # method name, accuracy, dictionary of any other important metrics 
     # dictionaries are turned into DFs then concatenated
+
+## run the models with different split ratios
 
 def main(df_name):
     prediction_df = load_df(df_name)

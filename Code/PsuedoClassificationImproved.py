@@ -1,24 +1,19 @@
-import matplotlib.pyplot as plt
-import numpy as np
-from numpy.random.mtrand import random_integers
 import pandas as pd
 from datetime import *
-
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.feature_selection import SelectKBest, f_classif
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
 from sklearn import metrics
-
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
-
 import timeit
-
 from numpy import nan
-
 import pickle
+
+
+
 
 with open('clean_data.pickle', 'rb') as handle:
   data = pickle.load(handle)
