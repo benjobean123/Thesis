@@ -2,7 +2,6 @@ from json import load
 import numpy as np
 import pandas
 import pickle
-
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.feature_selection import SelectKBest, f_classif
 from sklearn.model_selection import train_test_split

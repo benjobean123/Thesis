@@ -7,6 +7,7 @@ from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
 from sklearn import metrics
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
+from sklearn.neural_network import MLPClassifier, MLPRegressor
 from sklearn.svm import SVC
 import timeit
 from numpy import nan
@@ -187,8 +188,6 @@ print("\n\n[SVM Classifier - K Best]")
 print("Time:", timeit.timeit('clf.predict(kx_test)', globals=globals(), number=1000)/1000)
 print(clf.score(kx_test, ky_test))
 
-
-from sklearn.neural_network import MLPClassifier, MLPRegressor
 
 clf = MLPClassifier(random_state=2)
 clf.fit(X_train, Y_train)

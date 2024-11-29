@@ -1,0 +1,49 @@
+
+@startuml RunModels Activity
+
+title RunModels Activity
+start
+:Initialize;
+-> Import libraries and load dataframes;
+
+:Split Dataframe;
+
+repeat: Calculate Results;
+    -> For each ratio in Split Ratios: 
+    [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9];
+    
+    :Split Data;
+    -> model_data
+    Based on split_ratios;
+
+    repeat: Model in Models;
+    backward :Models:
+    1. svm_rbf
+    2. svm_linear
+    3. svm_poly
+    4. gauss_nb
+    5. complement_nb
+    6. mlp_classifier
+    7. rf_classifier
+    8. dt_classifier;
+
+
+    :Fit Model to Data;
+    -> clf.fit(x_train, y_train);
+    
+    
+    :Calculate Accuracy;
+    ->clf.score;
+
+    repeat while (More Models?) is (yes)
+    
+    :Append Results;
+
+repeat while (More Ratios?) is (yes)
+-> OUTPUT: results;
+:Write Data;
+-> prediction_w_sentiment_df--<ratio>.csv;
+
+
+stop
+@enduml

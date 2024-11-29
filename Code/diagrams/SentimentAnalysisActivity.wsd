@@ -1,0 +1,29 @@
+
+@startuml RunModels Activity
+
+title RunModels Activity
+start
+:Initialize;
+-> Import libraries and load dataframes;
+
+:Initialize Sentiment Features;
+->;
+
+repeat: For Each Simulation Name;
+
+    :Analyize Sentiment;
+    ->;
+
+    :Calculate Sentiment Delta;
+    ->;
+    
+    :Append to Results;
+    ->;
+
+repeat while (More Names?) is (yes)
+
+:Write Results;
+->prediction_w_sentiment_df.pickle;
+
+stop
+@enduml
