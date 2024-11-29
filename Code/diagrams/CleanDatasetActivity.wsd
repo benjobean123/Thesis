@@ -1,0 +1,28 @@
+@startuml CleanDataset Activity
+
+title CleanDataset Activity
+start
+:Initialize;
+-> Import libraries and excel data sheets;
+:Instatiate Data;
+-> remove metadata and combine simulation files;
+
+repeat: Clean Simulations;
+    :Label Coulumns;
+    -> 0:"Turn Taking", 1:"Time", 2:"Total", 3:"Simulation", 4:"SA Team";
+    :Remove empty values;
+    -> Check for NA/NULL;
+    :Drop extra coulumns;
+    -> Coulumns > 5;
+    :Format all values into strings;
+
+repeat while (More Simulations?) is (yes)
+-> OUTPUT: clean_sims;
+:Dump Data;
+-> OUTPUT: clean_data.pickle;
+
+
+stop
+@enduml
+
+

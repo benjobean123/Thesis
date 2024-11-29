@@ -72,6 +72,7 @@ prediction_df = pd.DataFrame.from_dict(
   }
 ).fillna(0)
 
+## Dump the prediction_df file
 with open("prediction_df.pickle", 'wb') as handle:
     pickle.dump(prediction_df, handle, protocol=pickle.HIGHEST_PROTOCOL)
 

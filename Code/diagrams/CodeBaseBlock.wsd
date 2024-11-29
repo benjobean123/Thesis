@@ -1,0 +1,32 @@
+@startuml Sentiment Analysis Code Base Block
+
+title Sentiment Analysis Code Base Block
+
+'skinparam linetype polyline
+skinparam linetype ortho
+left to right direction
+skinparam style strictuml
+hide empty members
+
+
+
+package "Sentiment Analysis Code Base" as SACB {
+  'define blocks
+  class "CleanDataset\nclean_data.pickle" as CD
+  class "PartialTraining" as PT
+  class "PsuedoClassification" as PC
+  class "PsuedoClassificationImproved\nprediction_df.pickle" as PCI
+  class "SentimentAnalysis" as SA
+  class "GraphProduction" as GP
+  
+  'add linkages
+  CD ---> PT
+  CD ---> PC
+  CD ---> PCI
+  CD ---> SA
+  CD ---> GP
+  PCI ---> SA
+  
+}
+
+@enduml

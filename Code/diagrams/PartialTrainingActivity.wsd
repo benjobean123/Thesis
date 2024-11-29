@@ -1,0 +1,39 @@
+
+@startuml PartialTraining Activity
+
+title PartialTraining Activity
+start
+:Initialize;
+-> Import libraries and excel data sheets;
+
+:Perform Sentiment Analysis;
+
+repeat: Partial Training Results;
+    -> For each ratio in test range: [0.5, 0.6, 0.7, 0.8, 0.9];
+    
+    :Label Coulumns;
+    -> 0:"Turn Taking", 1:"Time", 2:"Total", 3:"Simulation", 4:"SA Team";
+    
+    :Split Data;
+    -> X_train, X_test, Y_train, Y_test
+    Based on test ratios;
+    
+    :Train/Test Models;
+    ->1. DecisionTreeRegressor
+    2. DecisionTreeClassifier
+    3. RandomForestClassifier
+    4. RandomForestRegressor
+    5. SequenceDividerFontName
+    6. MLPClassifier - Adam
+    7. MLPClassifier - LBFGS;
+    
+    :Append Results;
+
+repeat while (More Ratios?) is (yes)
+-> OUTPUT: results;
+:Write Data;
+-> <training_percent>.csv;
+
+
+stop
+@enduml

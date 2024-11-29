@@ -1,0 +1,15 @@
+
+@startuml GraphProduction Activity
+
+title GraphProduction Activity
+start
+:Initialize;
+-> Import libraries and cleaned data;
+:Main;
+:Create Graphs;
+-> 1. Label Simulations
+2. Show SA percentage breakdown;
+:Display Graphs;
+
+stop
+@enduml

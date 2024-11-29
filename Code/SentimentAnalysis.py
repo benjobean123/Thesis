@@ -59,6 +59,7 @@ def main():
 
     print(df)
 
+    ## write out the prediction_w_sentiment_df
     with open('prediction_w_sentiment_df.pickle', 'wb') as handle:
         pickle.dump(df, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
