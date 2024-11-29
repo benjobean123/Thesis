@@ -16,8 +16,9 @@ package "Sentiment Analysis Code Base" as SACB {
   class "PartialTraining" as PT
   class "PsuedoClassification" as PC
   class "PsuedoClassificationImproved\nprediction_df.pickle" as PCI
-  class "SentimentAnalysis" as SA
+  class "SentimentAnalysis\nprediction_w_sentiment_df.pickle" as SA
   class "GraphProduction" as GP
+  class "RunModels" as  RM
   
   'add linkages
   CD ---> PT
@@ -26,6 +27,7 @@ package "Sentiment Analysis Code Base" as SACB {
   CD ---> SA
   CD ---> GP
   PCI ---> SA
+  SA---> RM
   
 }
 

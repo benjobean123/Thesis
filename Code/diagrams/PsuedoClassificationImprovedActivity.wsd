@@ -1,12 +1,15 @@
+@startuml PsuedoClassificationImproved Activity
 
-@startuml PsuedoClassification Activity
-
-title PsuedoClassification Activity
+title PsuedoClassificationImproved Activity
 start
 :Initialize;
 -> Import libraries and clneaned data;
 
 :Setup Prediciton Dataframe;
+->;
+
+:Dump Prediction Dataframe;
+->"prediction_df.pickle";
 
 :Split Data;
 ->test size 0.25;

@@ -1,7 +1,6 @@
+@startuml SentimentAnalysis Activity
 
-@startuml RunModels Activity
-
-title RunModels Activity
+title SentimentAnalysis Activity
 start
 :Initialize;
 -> Import libraries and load dataframes;
