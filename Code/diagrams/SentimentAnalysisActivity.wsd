@@ -10,7 +10,7 @@ start
 
 repeat: For Each Simulation Name;
 
-    :Analyize Sentiment;
+    :Analyze Sentiment;
     ->;
 
     :Calculate Sentiment Delta;

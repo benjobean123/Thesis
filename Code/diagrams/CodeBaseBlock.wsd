@@ -21,13 +21,13 @@ package "Sentiment Analysis Code Base" as SACB {
   class "RunModels" as  RM
   
   'add linkages
-  CD ---> PT
-  CD ---> PC
-  CD ---> PCI
-  CD ---> SA
-  CD ---> GP
-  PCI ---> SA
-  SA---> RM
+  CD --> PT
+  CD --> PC
+  CD --> PCI
+  CD --> SA
+  CD --> GP
+  PCI --> SA
+  SA--> RM
   
 }
 

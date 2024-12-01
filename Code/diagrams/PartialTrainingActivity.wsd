@@ -10,7 +10,7 @@ start
 repeat: Partial Training Results;
     -> For each ratio in test range: [0.5, 0.6, 0.7, 0.8, 0.9];
     
-    :Label Coulumns;
+    :Label Columns;
     -> 0:"Turn Taking", 1:"Time", 2:"Total", 3:"Simulation", 4:"SA Team";
     
     :Split Data;

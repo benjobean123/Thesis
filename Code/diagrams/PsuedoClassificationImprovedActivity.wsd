@@ -5,7 +5,7 @@ start
 :Initialize;
 -> Import libraries and clneaned data;
 
-:Setup Prediciton Dataframe;
+:Setup Prediction Dataframe;
 ->;
 
 :Dump Prediction Dataframe;

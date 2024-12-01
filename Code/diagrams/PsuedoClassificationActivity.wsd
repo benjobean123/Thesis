@@ -1,4 +1,3 @@
-
 @startuml PsuedoClassification Activity
 
 title PsuedoClassification Activity
@@ -6,7 +5,7 @@ start
 :Initialize;
 -> Import libraries and clneaned data;
 
-:Setup Prediciton Dataframe;
+:Setup Prediction Dataframe;
 
 :Split Data;
 ->test size 0.25;

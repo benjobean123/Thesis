@@ -8,13 +8,13 @@ start
 -> remove metadata and combine simulation files;
 
 repeat: Clean Simulations;
-    :Label Coulumns;
+    :Label Columns;
     -> 0:"Turn Taking", 1:"Time", 2:"Total", 3:"Simulation", 4:"SA Team";
-    :Remove empty values;
+    :Remove Empty Values;
     -> Check for NA/NULL;
-    :Drop extra coulumns;
-    -> Coulumns > 5;
-    :Format all values into strings;
+    :Drop Extra Columns;
+    -> Columns > 5;
+    :Format All Values Into Strings;
 
 repeat while (More Simulations?) is (yes)
 -> OUTPUT: clean_sims;
