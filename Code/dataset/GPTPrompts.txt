@@ -1,3 +1,323 @@
+1.x
+
 Can you give me an excel spreadsheet with different tabs for each scrum meeting type. Make the data show the communication between team members with timestamps. The team should consist of 8 people with defined roles. The data should show all the meetings over the sprint. The sprint should consist of a 2 week time period. The data should should be at least 300 lines for each ceremony. Make one more tab that shows the sprint metrics for the team. This team should not meet all their sprint goals and have some trouble communicating well
 
 Can you give me an excel spreadsheet with different tabs for each scrum meeting type. Make the data show the communication between team members with timestamps. The team should consist of 8 people with defined roles. The data should show all the meetings over the sprint. The sprint should consist of a 2 week time period. The data should should be at least 300 lines for each ceremony. Make one more tab that shows the sprint metrics for the team. This team should reach their sprint goals and communicate well.
+
+__________________________________________________________________________
+2.x
+ Final Refined Prompt: Full Scrum Ceremony Communication Dataset (Realistic & Timeboxed)
+
+    Create an Excel spreadsheet with separate tabs for each Scrum meeting type, structured over 4 full 2-week sprints. Each tab should contain at least 300 lines of timestamped, realistic communication between team members.
+
+    Include the following ceremonies with timeboxed durations and frequencies:
+
+        Sprint Planning — once per sprint, 2.5 hours
+
+        Daily Standups — every weekday, 9:00–9:15 AM (15 minutes)
+
+        Backlog Refinement — once per sprint, 2 hours
+
+        Sprint Review — once per sprint, 2 hours
+
+        Sprint Retrospective — once per sprint, 1 hour
+
+    Communication should reflect authentic back-and-forth dialogue and not just status updates. Include:
+
+        Role-specific commentary (e.g., PO discussing scope, QA raising quality concerns, UX pushing for usability)
+
+        Collaborative discussions, questions, clarifications, quick agreements/disagreements
+
+        Side remarks, confirmations, small misunderstandings, and natural resolution
+
+    The Scrum team should consist of 8 members, each with a clear role and distinct communication style:
+
+        Lena (Scrum Master) – guiding, inclusive
+
+        Raj (Product Owner) – prioritizing, strategic
+
+        Maya (Developer) – enthusiastic, curious
+
+        Eli (Developer) – analytical, brief
+
+        Noah (Developer) – detailed, reflective
+
+        Jin (Developer) – quiet, technical
+
+        Zara (QA Engineer) – sharp, quality-focused
+
+        Sofia (UX Designer) – empathetic, user-driven
+
+    The team is high-performing and maintains effective communication, consistently meeting their sprint goals. Their discussions should reflect a mix of:
+
+        Collaboration and cross-functional problem-solving
+
+        Diverse personalities and tones
+
+        Occasional light conflict or differing viewpoints with constructive resolution
+
+    Additionally, include a Sprint Metrics tab per sprint summarizing:
+
+        Velocity (story points completed)
+
+        Sprint Goal Completion (Yes/Partial/No)
+
+        Bugs Found vs. Resolved
+
+        Team Morale (qualitative rating or quotes)
+
+        Communication Effectiveness (qualitative insights)
+
+
+
+
+
+___________________________________________________________________________
+3.x
+Create an Excel spreadsheet with separate tabs for each Scrum meeting type across 4 full 2-week sprints. Each tab must include at least 300 lines of timestamped team communication that is natural, collaborative, and discussion-based.
+
+Include the following Scrum ceremonies, each with a defined frequency and timebox:
+
+    Daily Standup – 9:00–9:15 AM (15 minutes), every weekday
+
+    Sprint Planning – once per sprint, 2.5 hours
+
+    Backlog Refinement – once per sprint, 2 hours
+
+    Sprint Review – once per sprint, 2 hours
+
+    Sprint Retrospective – once per sprint, 1 hour
+
+The team includes 8 members with unique roles and communication styles:
+
+    Lena (Scrum Master) – guiding, inclusive
+
+    Raj (Product Owner) – prioritizing, strategic
+
+    Maya (Developer) – enthusiastic, curious
+
+    Eli (Developer) – analytical, brief
+
+    Noah (Developer) – detailed, reflective
+
+    Jin (Developer) – quiet, technical
+
+    Zara (QA Engineer) – sharp, quality-focused
+
+    Sofia (UX Designer) – empathetic, user-driven
+
+🗣️ Communication Guidelines:
+
+    Messages should include natural back-and-forth dialogue (e.g., A asks a question, B responds, C offers a clarification).
+
+    Include follow-ups, agreements, disagreements, clarifications, questions, acknowledgments, and side discussions.
+
+    Vary sentence structure and vocabulary—avoid repeating phrases or patterns.
+
+    Each team member’s voice should reflect their personality and role (e.g., developers might be more technical, the UX designer more user-focused, the Scrum Master more facilitative).
+
+    Use realistic tone: casual but professional, with occasional use of emojis or shorthand for certain personalities (e.g., “👍”, “np”, “lmk”).
+
+    Include collaborative interactions (e.g., “Can we pair on this later?”, “That’s a good catch—I'll tweak the logic.”, “Let’s sync after the meeting.”).
+
+The team is high-functioning, consistently achieving their sprint goals, and values transparency, quality, and user experience.
+
+Add a final tab for Sprint Metrics, with data for each sprint:
+
+    Velocity (story points)
+
+    Sprint Goal Completion (Yes/Partial/No)
+
+    Bugs Found vs. Resolved
+
+    Team Morale (qualitative)
+
+    Communication Effectiveness (qualitative)
+
+4.x
+_______________________________________________________________________
+Create an Excel spreadsheet with separate tabs for each Scrum meeting type across 4 full 2-week sprints. Each tab must include at least 300 lines of timestamped team communication that is natural, collaborative, and discussion-based.
+
+Include the following Scrum ceremonies, each with a defined frequency and timebox:
+
+    Daily Standup – 9:00–9:15 AM (15 minutes), every weekday - Purpose is to give everyones daily status, plan for the day, and resolve any team blockers
+
+    Sprint Planning – once per sprint, 2.5 hours - Used to plan the work for the next sprint
+
+    Backlog Refinement – once per sprint, 2 hours - Used to plan the future work in the backlog
+
+    Sprint Review – once per sprint, 2 hours - Used to show off/present the work that was completed, usually has demos and feedback from other stakeholders like the customer or product owner
+
+    Sprint Retrospective – once per sprint, 1 hour - Used to discuss things that went poorly and things that went well during the sprint and make adjustments to the way the team conducts work for future sprints, should include diologue that has complaints or suggestions for changes or engouragements for the team
+
+The team includes 8 members with unique roles and communication styles:
+
+    Lena (Scrum Master) – guiding, inclusive
+
+    Raj (Product Owner) – prioritizing, strategic
+
+    Maya (Developer) – enthusiastic, curious
+
+    Eli (Developer) – analytical, brief
+
+    Noah (Developer) – detailed, reflective
+
+    Jin (Developer) – quiet, technical
+
+    Zara (QA Engineer) – sharp, quality-focused
+
+    Sofia (UX Designer) – empathetic, user-driven
+
+Communication Guidelines: make the communication interesting
+
+    Messages should include natural back-and-forth dialogue (e.g., A asks a question, B responds, C offers a clarification). The Scrum master should facilitate the daily scrum. 
+
+    Include follow-ups, agreements, disagreements, clarifications, questions, acknowledgments, and side discussions between team members.
+
+    Vary sentence structure and vocabulary—avoid repeating phrases or patterns.
+
+    Each team member’s voice should reflect their personality and role (e.g., developers might be more technical, the UX designer more user-focused, the Scrum Master more facilitative).
+
+    Use realistic tone: casual but professional, with occasional use of shorthand for certain personalities (e.g., “np”, “lmk”).
+
+    Include collaborative interactions (e.g., “Can we pair on this later?”, “That’s a good catch—I'll tweak the logic.”, “Let’s sync after the meeting.”).
+
+The team is high-functioning, consistently achieving their sprint goals, and values transparency, quality, and user experience.
+
+Add a final tab for Sprint Metrics, with data for each sprint:
+
+    Velocity (story points)
+
+    Sprint Goal Completion (Yes/Partial/No)
+
+    Bugs Found vs. Resolved
+
+    Team Morale (qualitative)
+
+    Communication Effectiveness (qualitative)
+
+_______________________________________________________________________
+4.2
+Create an Excel spreadsheet with separate tabs for each Scrum meeting type across 4 full 2-week sprints. Each tab must include at least 300 lines of timestamped team communication that is natural, collaborative, and discussion-based.
+
+Include the following Scrum ceremonies, each with a defined frequency and timebox:
+
+    Daily Standup – 9:00–9:15 AM (15 minutes), every weekday - Purpose is to give everyones daily status, plan for the day, and resolve any team blockers
+
+    Sprint Planning – once per sprint, 2.5 hours - Used to plan the work for the next sprint
+
+    Backlog Refinement – once per sprint, 2 hours - Used to plan the future work in the backlog
+
+    Sprint Review – once per sprint, 2 hours - Used to show off/present the work that was completed, usually has demos and feedback from other stakeholders like the customer or product owner
+
+    Sprint Retrospective – once per sprint, 1 hour - Used to discuss things that went poorly and things that went well during the sprint and make adjustments to the way the team conducts work for future sprints, should include diologue that has complaints or suggestions for changes or engouragements for the team
+
+The team includes 8 members with unique roles and communication styles:
+
+    Lena (Scrum Master) – guiding, inclusive
+
+    Raj (Product Owner) – prioritizing, strategic
+
+    Maya (Developer) – enthusiastic, curious
+
+    Eli (Developer) – analytical, brief
+
+    Noah (Developer) – detailed, reflective
+
+    Jin (Developer) – quiet, technical
+
+    Zara (QA Engineer) – sharp, quality-focused
+
+    Sofia (UX Designer) – empathetic, user-driven
+
+Communication Guidelines: make the communication interesting
+
+    Messages should include natural back-and-forth dialogue (e.g., A asks a question, B responds, C offers a clarification). The Scrum master should facilitate the daily scrum. 
+
+    Include follow-ups, agreements, disagreements, clarifications, questions, acknowledgments, and side discussions between team members.
+
+    Vary sentence structure and vocabulary—avoid repeating phrases or patterns.  There should not be duplicate phrases within the same meeting.
+
+    Each team member’s voice should reflect their personality and role (e.g., developers might be more technical, the UX designer more user-focused, the Scrum Master more facilitative).
+
+    Use realistic tone: casual but professional, with occasional use of shorthand for certain personalities (e.g., “np”, “lmk”).
+
+    Include collaborative interactions (e.g., “Can we pair on this later?”, “That’s a good catch—I'll tweak the logic.”, “Let’s sync after the meeting.”).
+
+The team is high-functioning, consistently achieving their sprint goals, and values transparency, quality, and user experience.
+
+Add a final tab for Sprint Metrics, with data for each sprint:
+
+    Velocity (story points)
+
+    Sprint Goal Completion (Yes/Partial/No)
+
+    Bugs Found vs. Resolved
+
+    Team Morale (qualitative)
+
+    Communication Effectiveness (qualitative)
+
+
+
+________________________________
+NEGATIVE CASE:
+Create an Excel spreadsheet with separate tabs for each Scrum meeting type across 4 full 2-week sprints. Each tab must include at least 300 lines of timestamped team communication that is natural, collaborative, and discussion-based.
+
+Include the following Scrum ceremonies, each with a defined frequency and timebox:
+
+    Daily Standup – 9:00–9:15 AM (15 minutes), every weekday - Purpose is to give everyones daily status, plan for the day, and resolve any team blockers
+
+    Sprint Planning – once per sprint, 2.5 hours - Used to plan the work for the next sprint
+
+    Backlog Refinement – once per sprint, 2 hours - Used to plan the future work in the backlog
+
+    Sprint Review – once per sprint, 2 hours - Used to show off/present the work that was completed, usually has demos and feedback from other stakeholders like the customer or product owner
+
+    Sprint Retrospective – once per sprint, 1 hour - Used to discuss things that went poorly and things that went well during the sprint and make adjustments to the way the team conducts work for future sprints, should include diologue that has complaints or suggestions for changes or engouragements for the team
+
+The team includes 8 members with unique roles and communication styles:
+
+    Lena (Scrum Master) – guiding, inclusive
+
+    Raj (Product Owner) – prioritizing, strategic
+
+    Maya (Developer) – enthusiastic, curious
+
+    Eli (Developer) – analytical, brief
+
+    Noah (Developer) – detailed, reflective
+
+    Jin (Developer) – quiet, technical
+
+    Zara (QA Engineer) – sharp, quality-focused
+
+    Sofia (UX Designer) – empathetic, user-driven
+
+Communication Guidelines: make the communication interesting
+
+    Messages should include natural back-and-forth dialogue (e.g., A asks a question, B responds, C offers a clarification). The Scrum master should facilitate the daily scrum. 
+
+    Include follow-ups, agreements, disagreements, clarifications, questions, acknowledgments, and side discussions between team members.
+
+    Vary sentence structure and vocabulary—avoid repeating phrases or patterns.  There should not be duplicate phrases within the same meeting.
+
+    Each team member’s voice should reflect their personality and role (e.g., developers might be more technical, the UX designer more user-focused, the Scrum Master more facilitative).
+
+    Use realistic tone: casual but professional, with occasional use of shorthand for certain personalities (e.g., “np”, “lmk”).
+
+    Include collaborative interactions (e.g., “Can we pair on this later?”, “That’s a good catch—I'll tweak the logic.”, “Let’s sync after the meeting.”).
+
+The team is medium-functioning, they struggle to meet their sprint goals, and dont have all their priorities in alignement.
+
+Add a final tab for Sprint Metrics, with data for each sprint:
+
+    Velocity (story points)
+
+    Sprint Goal Completion (Yes/Partial/No)
+
+    Bugs Found vs. Resolved
+
+    Team Morale (qualitative)
+
+    Communication Effectiveness (qualitative)
