@@ -1,6 +1,7 @@
 import pandas as pd
 import pickle
 from numpy import nan
+from IPython.display import display
 
 xls1 = pd.ExcelFile("dataset/discourse_analysis_one.xlsx")
 xls2 = pd.ExcelFile("dataset/discourse_analysis_two.xlsx")
@@ -8,7 +9,7 @@ xls3 = pd.ExcelFile("dataset/High_Functioning_Scrum_Communication_Final_v5.xlsx"
 xls4 = pd.ExcelFile("dataset/Medium_Functioning_Scrum_Communication_Final_v5.xlsx")
 
 
-## Read in a sheet with no expected header for each sheet in the excel
+## Read in a sheet with no expected header for each sheet in the excel for intial simulations
 # Read in the simulation 1 excel sheet
 sims_1 = [pd.read_excel(xls1, sheet, header=None) for sheet in xls1.sheet_names]
 sims_1.pop(0) # remove the metadata sheet
@@ -20,6 +21,15 @@ sims_2.pop(0) # remote the metadata sheet
 ## Combine the different simulation list and their names
 sims = sims_1 + sims_2
 sim_names = xls1.sheet_names[1:] + xls2.sheet_names[1:]
+
+## Read in a sheet for each sheet in the excel for scrum simulations
+# Read in the Scrum high functioning excel sheet
+sims_3 = [pd.read_excel(xls3, sheet) for sheet in xls3.sheet_names]
+
+# Read in the Scrum high functioning excel sheet
+sims_4 = [pd.read_excel(xls4, sheet) for sheet in xls4.sheet_names]
+
+display(sims_3)
 
 ## Remove duplicate
 def rn(df, suffix = '-duplicate-'):
@@ -74,7 +84,7 @@ for i in range(len(sims)):
     print(i, sim_names[i], e)
     print(sims[i])
 
-print(clean_sims[sim_names[1]])
+#print(clean_sims[sim_names[1]])
 
 ## open the .pickle file and dump the clean data into it
 with open("clean_data.pickle", 'wb') as handle:
