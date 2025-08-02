@@ -2,6 +2,8 @@ import pandas as pd
 import pickle
 from numpy import nan
 from IPython.display import display
+from sklearn.preprocessing import LabelEncoder
+import re
 
 xls1 = pd.ExcelFile("dataset/discourse_analysis_one.xlsx")
 xls2 = pd.ExcelFile("dataset/discourse_analysis_two.xlsx")
@@ -16,7 +18,7 @@ sims_1.pop(0) # remove the metadata sheet
 
 # Read in the simulation 2 excel sheet
 sims_2 = [pd.read_excel(xls2, sheet) for sheet in xls2.sheet_names]
-sims_2.pop(0) # remote the metadata sheet
+sims_2.pop(0) # remove the metadata sheet
 
 ## Combine the different simulation list and their names
 sims = sims_1 + sims_2
@@ -25,11 +27,15 @@ sim_names = xls1.sheet_names[1:] + xls2.sheet_names[1:]
 ## Read in a sheet for each sheet in the excel for scrum simulations
 # Read in the Scrum high functioning excel sheet
 sims_3 = [pd.read_excel(xls3, sheet) for sheet in xls3.sheet_names]
+metrics_3 = sims_3.pop(5) ## Remove the Metrics sheet from the dataframe
+sim_names3 = xls3.sheet_names[1:]
 
 # Read in the Scrum high functioning excel sheet
 sims_4 = [pd.read_excel(xls4, sheet) for sheet in xls4.sheet_names]
+metrics_4 = sims_4.pop(5) ## Remove the Metrics sheet from the dataframe
+sim_names4 = xls4.sheet_names[1:]
 
-display(sims_3)
+
 
 ## Remove duplicate
 def rn(df, suffix = '-duplicate-'):
@@ -74,17 +80,74 @@ def clean_sim_data(sim_df):
   return sim_df
 
 
+
+## Function to clean each Agile excel sheet dataframe
+def clean_sim_scrum_data(sim_df):
+  
+  # Remove the unneeded Date and Role columns
+  sim_df = sim_df.drop(columns=["Date", "Role"])
+
+
+  # Encode the names to numbers
+  team_names = {
+    'Eli': 1, 
+    'Jin': 2, 
+    'Lena': 3, 
+    'Maya': 4, 
+    'Noah': 5, 
+    'Raj': 6, 
+    'Sofia': 7, 
+    'Zara': 8
+  }
+  sim_df['Name'] = sim_df['Name'].map(team_names)
+
+
+  # Remove the names from the chat logs
+  sim_df['Message'] = sim_df['Message'].str.replace(r'^[^:]*:', '', regex=True)
+
+  # Reorder the columns
+  column_order = ['Name', 'Timestamp', 'Message', 'Sprint']
+  sim_df = sim_df[column_order]
+
+  pd.set_option('display.max_columns', None)
+  #print(sim_df)
+  
+
+  return sim_df
+
+clean_scrum_sims = {}
 clean_sims = {}
 
+# clean the Firefighting sims
 for i in range(len(sims)):
   try:
     ## clean the dataset
     clean_sims[sim_names[i]] = clean_sim_data(sims[i])
   except Exception as e:
-    print(i, sim_names[i], e)
-    print(sims[i])
+    print("Hello World")
+    #print(i, sim_names[i], e)
+    #print(sims[i])
 
-#print(clean_sims[sim_names[1]])
+# clean the agile sims high functioning
+for i in range(len(sims_3)):
+  try:
+    clean_scrum_sims[sim_names3[i]] = clean_sim_scrum_data(sims_3[i])
+  except Exception as e:
+    print("\n")
+    print(i, sim_names3[i], e)
+    print(sims_3[i])
+
+# clean the agile sims high functioning
+for i in range(len(sims_4)):
+  try:
+    clean_scrum_sims[sim_names4[i]] = clean_sim_scrum_data(sims_4[i])
+  except Exception as e:
+    print("\n")
+    print(i, sim_names4[i], e)
+    print(sims_4[i])
+
+
+#print(clean_scrum_sims[sim_names3[1]])
 
 ## open the .pickle file and dump the clean data into it
 with open("clean_data.pickle", 'wb') as handle:
