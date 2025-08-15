@@ -7,8 +7,8 @@ import re
 
 xls1 = pd.ExcelFile("dataset/discourse_analysis_one.xlsx")
 xls2 = pd.ExcelFile("dataset/discourse_analysis_two.xlsx")
-xls3 = pd.ExcelFile("dataset/High_Functioning_Scrum_Communication_Final_v5.xlsx")
-xls4 = pd.ExcelFile("dataset/Medium_Functioning_Scrum_Communication_Final_v5.xlsx")
+xls3 = pd.ExcelFile("dataset/High_Functioning_Scrum_Communication_with_TSA.xlsx")
+xls4 = pd.ExcelFile("dataset/Medium_Functioning_Scrum_Communication_with_TSA.xlsx")
 
 
 ## Read in a sheet with no expected header for each sheet in the excel for intial simulations
@@ -106,7 +106,7 @@ def clean_sim_scrum_data(sim_df):
   sim_df['Message'] = sim_df['Message'].str.replace(r'^[^:]*:', '', regex=True)
 
   # Reorder the columns
-  column_order = ['Name', 'Timestamp', 'Message', 'Sprint']
+  column_order = ['Name', 'Timestamp', 'Message', 'Sprint', 'TSA']
   sim_df = sim_df[column_order]
 
   pd.set_option('display.max_columns', None)
@@ -152,3 +152,6 @@ for i in range(len(sims_4)):
 ## open the .pickle file and dump the clean data into it
 with open("clean_data.pickle", 'wb') as handle:
     pickle.dump(clean_sims, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open("clean_data_scrum.pickle", 'wb') as handle:
+    pickle.dump(clean_scrum_sims, handle, protocol=pickle.HIGHEST_PROTOCOL)
