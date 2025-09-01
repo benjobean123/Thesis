@@ -20,14 +20,15 @@ with open('clean_data_scrum.pickle', 'rb') as handle:
   data = pickle.load(handle)
 
 sim_names = list(data.keys())
+#print(sim_names)
 clean_sims = [data[name] for name in sim_names]
-
+#print(clean_sims)
 # Median + Mode => 7 - 12
 # Low: 7,8
 # Med: 9, 10
 # High: 11, 12
 #sim_classifications = [['low', 'low', 'medium', 'medium', 'high', 'high'][int(sim['SA'].median() + sim['SA'].mode()[0]) - 7] for sim in clean_sims]
-sim_classifications = [[1, 1, 2, 2, 3, 3][int(sim['SA'].median() + sim['SA'].mode()[0]) - 7] for sim in clean_sims]
+sim_classifications = [[1, 1, 2, 2, 3, 3][int(sim['TSA'].median() + sim['TSA'].mode()[0]) - 7] for sim in clean_sims]
 #print(sim_part_0_average_turn_taking)
 day = date.today()
 #print((lambda x: datetime.combine(day, x.iloc[-1]) - datetime.combine(day, x.iloc[0]))(clean_sims[0][clean_sims[0]['Simulation']==3]['Time'].sort_values()).seconds)
@@ -42,15 +43,17 @@ def calcuate_average(sim, i):
 
 sim_average_turn_taking = [
   sum([
-    calcuate_average(sim, i) for i in range(0, 4)
+    calcuate_average(sim, i) for i in range(0, 8)
   ]) for sim in clean_sims
 ]
 
 sim_number_turns = [len(sim) for sim in clean_sims]
-sim_turn_taking = [[len(sim[sim['Turn Taking'] == i+1])for sim in clean_sims] for i in range(0, 4)]
-sim_player_sa = [[sim[sim['Turn Taking'] == i+1]['SA'].dropna().mean() for sim in clean_sims] for i in range(0, 4)]
-sim_player_sa_median = [[sim[sim['Turn Taking'] == i+1]['SA'].median() for sim in clean_sims] for i in range(0, 4)]
-sim_turn_taking_by_sa = [[len(sim[sim['SA']==i]) for sim in clean_sims] for i in range(3, 7)]
+print("number of turns:")
+print(sim_number_turns)
+sim_turn_taking = [[len(sim[sim['Name'] == i+1])for sim in clean_sims] for i in range(0, 8)]
+sim_player_sa = [[sim[sim['Name'] == i+1]['TSA'].dropna().mean() for sim in clean_sims] for i in range(0, 8)]
+sim_player_sa_median = [[sim[sim['Name'] == i+1]['TSA'].median() for sim in clean_sims] for i in range(0, 8)]
+sim_turn_taking_by_sa = [[len(sim[sim['TSA']==i]) for sim in clean_sims] for i in range(3, 7)]
 
 prediction_df = pd.DataFrame.from_dict(
   {
@@ -60,10 +63,18 @@ prediction_df = pd.DataFrame.from_dict(
     'Player 2 Turn Taking' : sim_turn_taking[1],
     'Player 3 Turn Taking' : sim_turn_taking[2],
     'Player 4 Turn Taking' : sim_turn_taking[3],
+    'Player 5 Turn Taking' : sim_turn_taking[4],
+    'Player 6 Turn Taking' : sim_turn_taking[5],
+    'Player 7 Turn Taking' : sim_turn_taking[6],
+    'Player 8 Turn Taking' : sim_turn_taking[7],
     'Player 1 SA Average' : sim_player_sa[0],
     'Player 2 SA Average' : sim_player_sa[1],
     'Player 3 SA Average' : sim_player_sa[2],
     'Player 4 SA Average' : sim_player_sa[3],
+    'Player 5 SA Average' : sim_player_sa[4],
+    'Player 6 SA Average' : sim_player_sa[5],
+    'Player 7 SA Average' : sim_player_sa[6],
+    'Player 8 SA Average' : sim_player_sa[7],
     'Average Turn Taking' : sim_average_turn_taking,
     'SA 3 Turn Taking': sim_turn_taking_by_sa[0],
     'SA 4 Turn Taking': sim_turn_taking_by_sa[1],

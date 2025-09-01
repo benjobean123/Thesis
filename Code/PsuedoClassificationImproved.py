@@ -15,12 +15,16 @@ import pickle
 
 
 
-
+## Open the cleaned data set
 with open('clean_data.pickle', 'rb') as handle:
   data = pickle.load(handle)
 
+## Grab the column titles
 sim_names = list(data.keys())
+
 clean_sims = [data[name] for name in sim_names]
+
+
 
 # Median + Mode => 7 - 12
 # Low: 7,8
@@ -28,6 +32,11 @@ clean_sims = [data[name] for name in sim_names]
 # High: 11, 12
 #sim_classifications = [['low', 'low', 'medium', 'medium', 'high', 'high'][int(sim['SA'].median() + sim['SA'].mode()[0]) - 7] for sim in clean_sims]
 sim_classifications = [[1, 1, 2, 2, 3, 3][int(sim['SA'].median() + sim['SA'].mode()[0]) - 7] for sim in clean_sims]
+
+print(sim_classifications)
+
+# print("sim classifications\n")
+# print(sim_classifications)
 #print(sim_part_0_average_turn_taking)
 day = date.today()
 #print((lambda x: datetime.combine(day, x.iloc[-1]) - datetime.combine(day, x.iloc[0]))(clean_sims[0][clean_sims[0]['Simulation']==3]['Time'].sort_values()).seconds)
