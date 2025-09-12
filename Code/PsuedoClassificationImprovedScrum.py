@@ -91,6 +91,8 @@ with open("prediction_scrum_df.pickle", 'wb') as handle:
 y = prediction_df['Performance Rank']
 x = prediction_df.drop(columns=['Performance Rank', 'Name'])
 
+print(prediction_df)
+
 X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.25, random_state=2)
 
 

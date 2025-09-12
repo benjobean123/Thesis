@@ -86,6 +86,7 @@ prediction_df = pd.DataFrame.from_dict(
 with open("prediction_df.pickle", 'wb') as handle:
     pickle.dump(prediction_df, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
+print(prediction_df)
 y = prediction_df['Performance Rank']
 x = prediction_df.drop(columns=['Performance Rank', 'Name'])
 

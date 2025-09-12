@@ -62,23 +62,20 @@ def clean_sim_scrum_data(sim_df):
   column_order = ['Name', 'Timestamp', 'Message', 'Sprint', 'TSA']
   sim_df = sim_df[column_order]
 
+
   ## Reorganize the sheets to separate Agile Ceremonies by sprint 
   # Check for what sprint the line belongs too
-  for line in sim_df['Sprint']:
-    # If sprint 1, add the line to the new sim file
-    match line:
-      case '1':
-        sprint1 = pd.concat([sprint1, pd.sim_df([line])])
-      case '2':
-        sprint2 = pd.concat([sprint2, pd.sim_df([line])])
-      case '3':
-        sprint3 = pd.concat([sprint2, pd.sim_df([line])])
-      case '4':
-        sprint4 = pd.concat([sprint2, pd.sim_df([line])])
-    
-  print(sprint1)
+  sprint_dfs = {str(i): pd.DataFrame(columns=sim_df.columns) for i in range(1, 7)}
   
 
+
+  for _, row in sim_df.iterrows():
+    
+    sprint = str(row['Sprint'])
+    if sprint in sprint_dfs:
+      sprint_dfs[sprint] = pd.concat([sprint_dfs[sprint], pd.DataFrame([row])], ignore_index=True)
+  
+  print(sprint_dfs["1"])
   return sim_df
 
 clean_scrum_sims = {}
