@@ -64,18 +64,28 @@ def clean_sim_scrum_data(sim_df):
 
 
   ## Reorganize the sheets to separate Agile Ceremonies by sprint 
+  # Create empty dataframes with the same columns
+  sprint1 = pd.DataFrame(columns=sim_df.columns)
+  sprint2 = pd.DataFrame(columns=sim_df.columns)
+  sprint3 = pd.DataFrame(columns=sim_df.columns)
+  sprint4 = pd.DataFrame(columns=sim_df.columns)
+
   # Check for what sprint the line belongs too
-  sprint_dfs = {str(i): pd.DataFrame(columns=sim_df.columns) for i in range(1, 7)}
-  
-
-
+  # Loop through each row and add to the right dataframe
   for _, row in sim_df.iterrows():
-    
-    sprint = str(row['Sprint'])
-    if sprint in sprint_dfs:
-      sprint_dfs[sprint] = pd.concat([sprint_dfs[sprint], pd.DataFrame([row])], ignore_index=True)
+      if row['Sprint'] == 1:
+          sprint1 = pd.concat([sprint1, pd.DataFrame([row])], ignore_index=True)
+      elif row['Sprint'] == 2:
+          sprint2 = pd.concat([sprint2, pd.DataFrame([row])], ignore_index=True)
+      elif row['Sprint'] == 3:
+          sprint3 = pd.concat([sprint3, pd.DataFrame([row])], ignore_index=True)
+      elif row['Sprint'] == 4:
+          sprint4 = pd.concat([sprint4, pd.DataFrame([row])], ignore_index=True)
   
-  print(sprint_dfs["1"])
+  print(sprint1.shape)
+  print(sprint2.shape)
+  print(sprint3.shape)
+  print(sprint4.shape)
   return sim_df
 
 clean_scrum_sims = {}
@@ -90,14 +100,14 @@ for i in range(len(sims_3)):
     #print(i, sim_names3[i], e)
     #print(sims_3[i])
 
-# clean the agile sims high functioning
-for i in range(len(sims_4)):
-  try:
-    clean_scrum_sims[sim_names4[i]] = clean_sim_scrum_data(sims_4[i])
-  except Exception as e:
-    print("\n")
-    #print(i, sim_names4[i], e)
-    #print(sims_4[i])
+# # clean the agile sims medium functioning
+# for i in range(len(sims_4)):
+#   try:
+#     clean_scrum_sims[sim_names4[i]] = clean_sim_scrum_data(sims_4[i])
+#   except Exception as e:
+#     print("\n")
+#     #print(i, sim_names4[i], e)
+#     #print(sims_4[i])
 
 
 
