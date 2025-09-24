@@ -72,13 +72,11 @@ def clean_sim_scrum_data(sim_df):
     sprint2 = pd.DataFrame(columns=sim_df[i].columns)
     sprint3 = pd.DataFrame(columns=sim_df[i].columns)
     sprint4 = pd.DataFrame(columns=sim_df[i].columns)
-    sim1 = pd.DataFrame(columns=sim_df[i].columns)
-    sim2 = pd.DataFrame(columns=sim_df[i].columns)
-    sim3 = pd.DataFrame(columns=sim_df[i].columns)
-    sim4 = pd.DataFrame(columns=sim_df[i].columns)
+    sim1 = sim_df
     # Check for what sprint the line belongs too
     # Loop through each row and add to the right dataframe
     for _, row in sim_df[i].iterrows():
+        print(row)
         if row['Sprint'] == 1:
             sprint1 = pd.concat([sprint1, pd.DataFrame([row])], ignore_index=True)
         elif row['Sprint'] == 2:
@@ -88,22 +86,18 @@ def clean_sim_scrum_data(sim_df):
         elif row['Sprint'] == 4:
             sprint4 = pd.concat([sprint4, pd.DataFrame([row])], ignore_index=True)
     # Save the Sprints to another dataframe to create the simulations
-    sim1 = pd.concat([sim1, sprint1], ignore_index=True)
-    sim2 = pd.concat([sim2, sprint1], ignore_index=True)
-    sim3 = pd.concat([sim3, sprint1], ignore_index=True)
-    sim4 = pd.concat([sim4, sprint1], ignore_index=True)
+    sim1[0] = pd.concat([sim1[0], sprint1], ignore_index=True)
+    sim1[1] = pd.concat([sim1[1], sprint1], ignore_index=True)
+    sim1[2] = pd.concat([sim1[2], sprint1], ignore_index=True)
+    sim1[3] = pd.concat([sim1[3], sprint1], ignore_index=True)
         
-  print(sim1.shape)
-  print(sim2.shape)
-  print(sim3.shape)
-  print(sim4.shape)
+  print(sim1[0].shape)
+  print(sim1[1].shape)
+  print(sim1[2].shape)
+  print(sim1[3].shape)
 
-  simTotal_df = pd.DataFrame()
-  simTotal_df[1] = sim1
-  simTotal_df[2] = sim2
-  simTotal_df[3] = sim3
-  simTotal_df[4] = sim4
-  return simTotal_df
+  
+  return sim1
 
 clean_scrum_sims = {}
 
