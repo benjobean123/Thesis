@@ -1,6 +1,6 @@
 import pandas as pd
 import pickle
-from numpy import nan
+import numpy as np
 from sklearn.preprocessing import LabelEncoder
 import re
 
@@ -36,35 +36,49 @@ def rn(df, suffix = '-duplicate-'):
 ## Function to clean each Agile excel sheet dataframe
 def clean_sim_scrum_data(sim_df):
   
+  # Remove the unneeded Date and Role columns
+  sim_df = sim_df.drop(columns=["Date", "Role"])
+
+
+  # Encode the names to numbers
+  team_names = {
+    'Eli': 1, 
+    'Jin': 2, 
+    'Lena': 3, 
+    'Maya': 4, 
+    'Noah': 5, 
+    'Raj': 6, 
+    'Sofia': 7, 
+    'Zara': 8
+  }
+
+  sim_df['Name'] = sim_df['Name'].map(team_names)
+
+
+  # Remove the names from the chat logs
+  sim_df['Message'] = sim_df['Message'].str.replace(r'^[^:]*:', '', regex=True)
+
+  # Reorder the columns
+  column_order = ['Name', 'Timestamp', 'Message', 'Sprint', 'TSA']
+  sim_df = sim_df[column_order]
+
+
+  
+  return sim_df
+
+
+def reorder_scrum_sims(sim_df):
+  sim1 = sim_df
+  num_rows = len(sim1)
+  num_columns = len(sim1[0])
+  print("(" + str(num_rows) + "," + str(num_columns) + ")")
+  sim1.pop(4)
+  num_rows = len(sim1)
+  num_columns = len(sim1[0])
+  print("(" + str(num_rows) + "," + str(num_columns) + ")")
+  
   for i in range(len(sim_df)):
     
-
-    # Remove the unneeded Date and Role columns
-    sim_df[i] = sim_df[i].drop(columns=["Date", "Role"])
-
-
-    # Encode the names to numbers
-    team_names = {
-      'Eli': 1, 
-      'Jin': 2, 
-      'Lena': 3, 
-      'Maya': 4, 
-      'Noah': 5, 
-      'Raj': 6, 
-      'Sofia': 7, 
-      'Zara': 8
-    }
-
-    sim_df[i]['Name'] = sim_df[i]['Name'].map(team_names)
-
-
-    # Remove the names from the chat logs
-    sim_df[i]['Message'] = sim_df[i]['Message'].str.replace(r'^[^:]*:', '', regex=True)
-
-    # Reorder the columns
-    column_order = ['Name', 'Timestamp', 'Message', 'Sprint', 'TSA']
-    sim_df[i] = sim_df[i][column_order]
-
 
     ## Reorganize the sheets to separate Agile Ceremonies by sprint 
     # Create empty dataframes with the same columns
@@ -72,11 +86,11 @@ def clean_sim_scrum_data(sim_df):
     sprint2 = pd.DataFrame(columns=sim_df[i].columns)
     sprint3 = pd.DataFrame(columns=sim_df[i].columns)
     sprint4 = pd.DataFrame(columns=sim_df[i].columns)
-    sim1 = sim_df
+    
     # Check for what sprint the line belongs too
     # Loop through each row and add to the right dataframe
     for _, row in sim_df[i].iterrows():
-        print(row)
+        #print(row)
         if row['Sprint'] == 1:
             sprint1 = pd.concat([sprint1, pd.DataFrame([row])], ignore_index=True)
         elif row['Sprint'] == 2:
@@ -85,24 +99,36 @@ def clean_sim_scrum_data(sim_df):
             sprint3 = pd.concat([sprint3, pd.DataFrame([row])], ignore_index=True)
         elif row['Sprint'] == 4:
             sprint4 = pd.concat([sprint4, pd.DataFrame([row])], ignore_index=True)
+    
+    #print(sprint1.shape)
     # Save the Sprints to another dataframe to create the simulations
     sim1[0] = pd.concat([sim1[0], sprint1], ignore_index=True)
-    sim1[1] = pd.concat([sim1[1], sprint1], ignore_index=True)
-    sim1[2] = pd.concat([sim1[2], sprint1], ignore_index=True)
-    sim1[3] = pd.concat([sim1[3], sprint1], ignore_index=True)
+    sim1[1] = pd.concat([sim1[1], sprint2], ignore_index=True)
+    sim1[2] = pd.concat([sim1[2], sprint3], ignore_index=True)
+    sim1[3] = pd.concat([sim1[3], sprint4], ignore_index=True)
         
-  print(sim1[0].shape)
-  print(sim1[1].shape)
-  print(sim1[2].shape)
-  print(sim1[3].shape)
+  # print(sim1[0].head)
+  # print(sim1[1].shape)
+  # print(sim1[2].shape)
+  # print(sim1[3].shape)
 
-  
+
   return sim1
 
-clean_scrum_sims = {}
 
 # clean the agile sims high functioning
-clean_sim_scrum_data(sims_3)
+sims_3_clean = sims_3
+for i in range(len(sims_3)):
+  try:
+    sims_3_clean[i] = clean_sim_scrum_data(sims_3[i])
+  except Exception as e:
+    print("\n")
+    #print(i, sim_names3[i], e)
+    #print(sims_3[i])
+
+# reorder the sim columns
+sims_3_clean = reorder_scrum_sims(sims_3_clean)
+
 
 # # clean the agile sims high functioning
 # for i in range(len(sims_3)):
@@ -126,4 +152,4 @@ clean_sim_scrum_data(sims_3)
 
 ## open the .pickle file and dump the clean data into it
 with open("clean_data_scrum.pickle", 'wb') as handle:
-    pickle.dump(clean_scrum_sims, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    pickle.dump(sims_3_clean, handle, protocol=pickle.HIGHEST_PROTOCOL)
