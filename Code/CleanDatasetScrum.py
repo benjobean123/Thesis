@@ -68,18 +68,15 @@ def clean_sim_scrum_data(sim_df):
 
 
 def reorder_scrum_sims(sim_df):
-  sim1 = sim_df
-  num_rows = len(sim1)
-  num_columns = len(sim1[0])
-  print("(" + str(num_rows) + "," + str(num_columns) + ")")
-  sim1.pop(4)
-  num_rows = len(sim1)
-  num_columns = len(sim1[0])
-  print("(" + str(num_rows) + "," + str(num_columns) + ")")
   
-  for i in range(len(sim_df)):
-    
+  reordered_sims = {}
+  reordered_sims[0]=pd.DataFrame(columns=sim_df[0].columns)
+  reordered_sims[1]=pd.DataFrame(columns=sim_df[1].columns)
+  reordered_sims[2]=pd.DataFrame(columns=sim_df[2].columns)
+  reordered_sims[3]=pd.DataFrame(columns=sim_df[3].columns)
 
+  for i in range(len(sim_df)):
+    print(sim_df[i])
     ## Reorganize the sheets to separate Agile Ceremonies by sprint 
     # Create empty dataframes with the same columns
     sprint1 = pd.DataFrame(columns=sim_df[i].columns)
@@ -90,7 +87,6 @@ def reorder_scrum_sims(sim_df):
     # Check for what sprint the line belongs too
     # Loop through each row and add to the right dataframe
     for _, row in sim_df[i].iterrows():
-        #print(row)
         if row['Sprint'] == 1:
             sprint1 = pd.concat([sprint1, pd.DataFrame([row])], ignore_index=True)
         elif row['Sprint'] == 2:
@@ -102,18 +98,18 @@ def reorder_scrum_sims(sim_df):
     
     #print(sprint1.shape)
     # Save the Sprints to another dataframe to create the simulations
-    sim1[0] = pd.concat([sim1[0], sprint1], ignore_index=True)
-    sim1[1] = pd.concat([sim1[1], sprint2], ignore_index=True)
-    sim1[2] = pd.concat([sim1[2], sprint3], ignore_index=True)
-    sim1[3] = pd.concat([sim1[3], sprint4], ignore_index=True)
+    reordered_sims[0] = pd.concat([reordered_sims[0], sprint1], ignore_index=True)
+    reordered_sims[1] = pd.concat([reordered_sims[1], sprint2], ignore_index=True)
+    reordered_sims[2] = pd.concat([reordered_sims[2], sprint3], ignore_index=True)
+    reordered_sims[3] = pd.concat([reordered_sims[3], sprint4], ignore_index=True)
         
-  # print(sim1[0].head)
-  # print(sim1[1].shape)
-  # print(sim1[2].shape)
-  # print(sim1[3].shape)
+  print(reordered_sims[0].shape)
+  print(reordered_sims[1].shape)
+  print(reordered_sims[2].shape)
+  print(reordered_sims[3].shape)
 
 
-  return sim1
+  return reordered_sims
 
 
 # clean the agile sims high functioning
@@ -130,23 +126,18 @@ for i in range(len(sims_3)):
 sims_3_clean = reorder_scrum_sims(sims_3_clean)
 
 
-# # clean the agile sims high functioning
-# for i in range(len(sims_3)):
-#   try:
-#     clean_scrum_sims[sim_names3[i]] = clean_sim_scrum_data(sims_3[i])
-#   except Exception as e:
-#     print("\n")
-#     #print(i, sim_names3[i], e)
-#     #print(sims_3[i])
+# clean the agile sims medium functioning
+sims_4_clean = sims_3
+for i in range(len(sims_4)):
+  try:
+    sims_4_clean[sim_names4[i]] = clean_sim_scrum_data(sims_4[i])
+  except Exception as e:
+    print("\n")
+    #print(i, sim_names4[i], e)
+    #print(sims_4[i])
 
-# # clean the agile sims medium functioning
-# for i in range(len(sims_4)):
-#   try:
-#     clean_scrum_sims[sim_names4[i]] = clean_sim_scrum_data(sims_4[i])
-#   except Exception as e:
-#     print("\n")
-#     #print(i, sim_names4[i], e)
-#     #print(sims_4[i])
+# reorder the sim columns
+sims_4_clean = reorder_scrum_sims(sims_4_clean)
 
 
 
