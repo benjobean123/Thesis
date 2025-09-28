@@ -111,6 +111,15 @@ def reorder_scrum_sims(sim_df):
 
   return reordered_sims
 
+## Function to add all the simulations together
+def add_sumulations(simulations_df):
+
+  for i in range(len(sims_3_clean)):
+    scrum_simulations[i + len(scrum_simulations)] = pd.DataFrame(columns=sims_3_clean[i].columns)
+    scrum_simulations[i + len(scrum_simulations)] = pd.concat([scrum_simulations[i + len(scrum_simulations)], sims_3_clean[i]], ignore_index=True)
+  
+  return simulations_df
+
 
 # clean the agile sims high functioning
 sims_3_clean = sims_3
@@ -138,6 +147,16 @@ for i in range(len(sims_4)):
 
 # reorder the sim columns
 sims_4_clean = reorder_scrum_sims(sims_4_clean)
+
+scrum_simulations = {}
+print(len(scrum_simulations) + len(scrum_simulations[0]))
+
+scrum_simulations = add_sumulations(sims_3_clean)
+scrum_simulations = add_sumulations(sims_4_clean)
+
+print(len(scrum_simulations) + len(scrum_simulations[0]))
+
+
 
 
 
