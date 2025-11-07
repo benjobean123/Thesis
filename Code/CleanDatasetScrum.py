@@ -112,13 +112,20 @@ def reorder_scrum_sims(sim_df):
   return reordered_sims
 
 ## Function to add all the simulations together
-def add_sumulations(simulations_df):
+# def add_simulations(simulations_df):
+#     key = len(scrum_simulations)
+#     new_entries = {key + i: df.copy() for i, df in enumerate(sims_3_clean)}
+#     scrum_simulations.update(new_entries)
+#     return simulations_df
 
-  for i in range(len(sims_3_clean)):
-    scrum_simulations[i + len(scrum_simulations)] = pd.DataFrame(columns=sims_3_clean[i].columns)
-    scrum_simulations[i + len(scrum_simulations)] = pd.concat([scrum_simulations[i + len(scrum_simulations)], sims_3_clean[i]], ignore_index=True)
+def add_simulations(simulations_df):
+  key=len(scrum_simulations)
+  for i in range(len(simulations_df)):
+    print(scrum_simulations)
+    scrum_simulations[i + key] = pd.DataFrame(columns=simulations_df[i].columns)
+    scrum_simulations[i + key] = pd.concat([scrum_simulations[i + key], simulations_df[i]], ignore_index=True)
   
-  return simulations_df
+  return scrum_simulations
 
 
 # clean the agile sims high functioning
@@ -149,12 +156,11 @@ for i in range(len(sims_4)):
 sims_4_clean = reorder_scrum_sims(sims_4_clean)
 
 scrum_simulations = {}
-print(len(scrum_simulations) + len(scrum_simulations[0]))
 
-scrum_simulations = add_sumulations(sims_3_clean)
-scrum_simulations = add_sumulations(sims_4_clean)
+scrum_simulations = add_simulations(sims_3_clean)
+scrum_simulations = add_simulations(sims_4_clean)
 
-print(len(scrum_simulations) + len(scrum_simulations[0]))
+print(len(scrum_simulations))
 
 
 
@@ -162,4 +168,4 @@ print(len(scrum_simulations) + len(scrum_simulations[0]))
 
 ## open the .pickle file and dump the clean data into it
 with open("clean_data_scrum.pickle", 'wb') as handle:
-    pickle.dump(sims_3_clean, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    pickle.dump(scrum_simulations, handle, protocol=pickle.HIGHEST_PROTOCOL)
