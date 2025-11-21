@@ -21,7 +21,7 @@ with open('clean_data.pickle', 'rb') as handle:
 
 ## Grab the column titles
 sim_names = list(data.keys())
-
+print(sim_names)
 clean_sims = [data[name] for name in sim_names]
 
 

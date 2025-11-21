@@ -36,7 +36,7 @@ day = date.today()
 
 def calcuate_average(sim, i):
   try:
-    return 60 * len(sim[sim['Simulation']==i+1]) / (lambda x: datetime.combine(day, x.iloc[-1]) - datetime.combine(day, x.iloc[0]))(sim[sim['Simulation']==i+1]['Time'].sort_values()).seconds
+    return 60 * len(sim[sim['Sprint']==i+1]) / (lambda x: datetime.combine(day, x.iloc[-1]) - datetime.combine(day, x.iloc[0]))(sim[sim['Sprint']==i+1]['Timestamp'].sort_values()).seconds
   except:
     return 0
 

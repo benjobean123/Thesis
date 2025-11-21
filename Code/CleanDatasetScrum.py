@@ -160,7 +160,7 @@ scrum_simulations = {}
 scrum_simulations = add_simulations(sims_3_clean)
 scrum_simulations = add_simulations(sims_4_clean)
 
-print(len(scrum_simulations))
+
 
 
 

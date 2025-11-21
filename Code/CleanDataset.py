@@ -57,6 +57,7 @@ def clean_sim_data(sim_df):
     sim_df['SA'] = sim_df['SA Team'].apply(lambda x: eval(str(x))[0])
   
   sim_df = sim_df.drop(columns=["SA Team"])
+  print(sim_df.head())
 
   if not sim_df.index.is_unique:
     #print(sim_df.index.duplicated())
