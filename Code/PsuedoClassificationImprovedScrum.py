@@ -34,8 +34,9 @@ day = date.today()
 #print((lambda x: datetime.combine(day, x.iloc[-1]) - datetime.combine(day, x.iloc[0]))(clean_sims[0][clean_sims[0]['Simulation']==3]['Time'].sort_values()).seconds)
 
 
-def calcuate_average(sim, i):
+def calculate_average(sim, i):
   try:
+    
     return 60 * len(sim[sim['Sprint']==i+1]) / (lambda x: datetime.combine(day, x.iloc[-1]) - datetime.combine(day, x.iloc[0]))(sim[sim['Sprint']==i+1]['Timestamp'].sort_values()).seconds
   except:
     return 0
@@ -43,7 +44,7 @@ def calcuate_average(sim, i):
 
 sim_average_turn_taking = [
   sum([
-    calcuate_average(sim, i) for i in range(0, 8)
+    calculate_average(sim, i) for i in range(0, 8)
   ]) for sim in clean_sims
 ]
 

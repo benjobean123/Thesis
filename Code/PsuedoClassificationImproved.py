@@ -22,7 +22,9 @@ with open('clean_data.pickle', 'rb') as handle:
 ## Grab the column titles
 sim_names = list(data.keys())
 print(sim_names)
+
 clean_sims = [data[name] for name in sim_names]
+
 
 
 
@@ -42,7 +44,7 @@ day = date.today()
 #print((lambda x: datetime.combine(day, x.iloc[-1]) - datetime.combine(day, x.iloc[0]))(clean_sims[0][clean_sims[0]['Simulation']==3]['Time'].sort_values()).seconds)
 
 
-def calcuate_average(sim, i):
+def calculate_average(sim, i):
   try:
     return 60 * len(sim[sim['Simulation']==i+1]) / (lambda x: datetime.combine(day, x.iloc[-1]) - datetime.combine(day, x.iloc[0]))(sim[sim['Simulation']==i+1]['Time'].sort_values()).seconds
   except:
@@ -51,7 +53,7 @@ def calcuate_average(sim, i):
 
 sim_average_turn_taking = [
   sum([
-    calcuate_average(sim, i) for i in range(0, 4)
+    calculate_average(sim, i) for i in range(0, 4)
   ]) for sim in clean_sims
 ]
 

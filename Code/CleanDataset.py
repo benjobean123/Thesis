@@ -71,16 +71,18 @@ def clean_sim_data(sim_df):
 clean_sims = {}
 
 # clean the Firefighting sims
+sim_counter=0
 for i in range(len(sims)):
   try:
     ## clean the dataset
+    sim_counter=sim_counter+1
     clean_sims[sim_names[i]] = clean_sim_data(sims[i])
   except Exception as e:
     print("Hello World")
     #print(i, sim_names[i], e)
     #print(sims[i])
 
-
+print("total sims = " + str(sim_counter))
 ## open the .pickle file and dump the clean data into it
 with open("clean_data.pickle", 'wb') as handle:
     pickle.dump(clean_sims, handle, protocol=pickle.HIGHEST_PROTOCOL)
