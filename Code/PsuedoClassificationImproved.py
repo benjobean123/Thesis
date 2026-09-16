@@ -10,7 +10,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.neural_network import MLPClassifier, MLPRegressor
 from sklearn.svm import SVC
 import timeit
-from numpy import nan
+import numpy as np
 import pickle
 
 
@@ -21,7 +21,7 @@ with open('clean_data.pickle', 'rb') as handle:
 
 ## Grab the column titles
 sim_names = list(data.keys())
-print(sim_names)
+print(sim_names[0])
 
 clean_sims = [data[name] for name in sim_names]
 
@@ -34,8 +34,10 @@ clean_sims = [data[name] for name in sim_names]
 # High: 11, 12
 #sim_classifications = [['low', 'low', 'medium', 'medium', 'high', 'high'][int(sim['SA'].median() + sim['SA'].mode()[0]) - 7] for sim in clean_sims]
 sim_classifications = [[1, 1, 2, 2, 3, 3][int(sim['SA'].median() + sim['SA'].mode()[0]) - 7] for sim in clean_sims]
-
+print("Sim Classifications")
 print(sim_classifications)
+
+
 
 # print("sim classifications\n")
 # print(sim_classifications)
@@ -58,10 +60,20 @@ sim_average_turn_taking = [
 ]
 
 sim_number_turns = [len(sim) for sim in clean_sims]
+print("number of turns:")
+print(sim_number_turns[0])
 sim_turn_taking = [[len(sim[sim['Turn Taking'] == i+1])for sim in clean_sims] for i in range(0, 4)]
+print("turn taking")
+print(sim_turn_taking[0][0])
 sim_player_sa = [[sim[sim['Turn Taking'] == i+1]['SA'].dropna().mean() for sim in clean_sims] for i in range(0, 4)]
+print("player sa score")
+print(sim_player_sa[0][0])
 sim_player_sa_median = [[sim[sim['Turn Taking'] == i+1]['SA'].median() for sim in clean_sims] for i in range(0, 4)]
+print("median sa score")
+print(sim_player_sa_median[0][0])
 sim_turn_taking_by_sa = [[len(sim[sim['SA']==i]) for sim in clean_sims] for i in range(3, 7)]
+print("turn taking by sa")
+print(sim_turn_taking_by_sa[0][0])
 
 prediction_df = pd.DataFrame.from_dict(
   {
@@ -88,9 +100,19 @@ prediction_df = pd.DataFrame.from_dict(
 with open("prediction_df.pickle", 'wb') as handle:
     pickle.dump(prediction_df, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-print(prediction_df)
+#print(prediction_df)
+
+
 y = prediction_df['Performance Rank']
 x = prediction_df.drop(columns=['Performance Rank', 'Name'])
+
+print("prediction_df")
+print(prediction_df)
+print("y")
+print(y)
+print("x")
+print(x)
+temp = np.array(clean_sims)
 
 X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size=0.25, random_state=2)
 

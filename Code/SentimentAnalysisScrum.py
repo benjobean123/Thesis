@@ -24,7 +24,7 @@ def main():
     with open('clean_data_scrum.pickle', 'rb') as handle:
         data = pickle.load(handle)
 
-    with open('prediction_df.pickle', 'rb') as handle:
+    with open('prediction_scrum_df.pickle', 'rb') as handle:
         prediction_df = pickle.load(handle)
 
     sim_names = list(data.keys())
