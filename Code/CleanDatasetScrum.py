@@ -11,17 +11,17 @@ pd.set_option('display.max_columns', None)
 
 ## Read in a sheet for each sheet in the excel for scrum simulations
 # Read in the Scrum high functioning excel sheet
-sims_3 = [pd.read_excel(xls3, sheet) for sheet in xls3.sheet_names]
-metrics_3 = sims_3.pop(5) ## Remove the Metrics sheet from the dataframe
-sim_names3 = xls3.sheet_names[1:]
-#print(sims_3)
+highFunctioningDF = [pd.read_excel(xls3, sheet) for sheet in xls3.sheet_names]
+metrics_3 = highFunctioningDF.pop(5) ## Remove the Metrics sheet from the dataframe
+highFunctioningDFNames = xls3.sheet_names[1:]
+#print(highFunctioningDF)
 
 
 
 
 # Read in the Scrum high functioning excel sheet
-sims_4 = [pd.read_excel(xls4, sheet) for sheet in xls4.sheet_names]
-metrics_4 = sims_4.pop(5) ## Remove the Metrics sheet from the dataframe
+mediumFunctioningDF = [pd.read_excel(xls4, sheet) for sheet in xls4.sheet_names]
+metrics_4 = mediumFunctioningDF.pop(5) ## Remove the Metrics sheet from the dataframe
 sim_names4 = xls4.sheet_names[1:]
 
 
@@ -127,38 +127,56 @@ def add_simulations(simulations_df):
   
   return scrum_simulations
 
+def assign_performance_rank(sim_df, performace_level):
+   ## Assign a Scrum performance rank to the dataframe
+
+   # 1 = Low Functioning
+   # 2 = Med Functioning
+   # 3 = High Functioning
+
+   performance_map = {
+      "low": 1,
+      "medium": 2,
+      "high": 3
+   }
+
+   sim_df = sim_df.copy()
+
+   sim_df["Performance Rank"] = performance_map[performace_level.lower()]
+
 
 # clean the agile sims high functioning
-sims_3_clean = sims_3
-for i in range(len(sims_3)):
+highFunctioningDFClean = highFunctioningDF
+for i in range(len(highFunctioningDF)):
   try:
-    sims_3_clean[i] = clean_sim_scrum_data(sims_3[i])
+    highFunctioningDFClean[i] = clean_sim_scrum_data(highFunctioningDF[i])
   except Exception as e:
     print("\n")
     #print(i, sim_names3[i], e)
     #print(sims_3[i])
 
 # reorder the sim columns
-sims_3_clean = reorder_scrum_sims(sims_3_clean)
+highFunctioningDFClean = reorder_scrum_sims(highFunctioningDFClean)
 
 
 # clean the agile sims medium functioning
-sims_4_clean = sims_3
-for i in range(len(sims_4)):
+mediumFunctioningDFClean = mediumFunctioningDF
+for i in range(len(mediumFunctioningDF)):
   try:
-    sims_4_clean[sim_names4[i]] = clean_sim_scrum_data(sims_4[i])
+    mediumFunctioningDFClean[sim_names4[i]] = clean_sim_scrum_data(mediumFunctioningDF[i])
   except Exception as e:
     print("\n")
     #print(i, sim_names4[i], e)
     #print(sims_4[i])
 
 # reorder the sim columns
-sims_4_clean = reorder_scrum_sims(sims_4_clean)
+mediumFunctioningDFClean = reorder_scrum_sims(mediumFunctioningDFClean)
 
 scrum_simulations = {}
 
-scrum_simulations = add_simulations(sims_3_clean)
-scrum_simulations = add_simulations(sims_4_clean)
+scrum_simulations = add_simulations(highFunctioningDFClean)
+scrum_simulations = add_simulations(mediumFunctioningDFClean)
+
 
 
 
