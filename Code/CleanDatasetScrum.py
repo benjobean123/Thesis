@@ -133,6 +133,7 @@ def assign_performance_rank(sim_df, performace_level):
    # 1 = Low Functioning
    # 2 = Med Functioning
    # 3 = High Functioning
+    
 
    performance_map = {
       "low": 1,
@@ -157,6 +158,9 @@ for i in range(len(highFunctioningDF)):
 
 # reorder the sim columns
 highFunctioningDFClean = reorder_scrum_sims(highFunctioningDFClean)
+
+highFunctioningDFClean = assign_performance_rank(highFunctioningDFClean, "high")
+#print(highFunctioningDFClean)
 
 
 # clean the agile sims medium functioning
