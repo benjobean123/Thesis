@@ -12,7 +12,8 @@ pd.set_option('display.max_columns', None)
 ## Read in a sheet for each sheet in the excel for scrum simulations
 # Read in the Scrum high functioning excel sheet
 highFunctioningDF = [pd.read_excel(xls3, sheet) for sheet in xls3.sheet_names]
-metrics_3 = highFunctioningDF.pop(5) ## Remove the Metrics sheet from the dataframe
+highFunctioningMetrics = highFunctioningDF.pop(5) ## Remove the Metrics sheet from the dataframe
+print(highFunctioningMetrics)
 highFunctioningDFNames = xls3.sheet_names[1:]
 #print(highFunctioningDF)
 
@@ -21,8 +22,9 @@ highFunctioningDFNames = xls3.sheet_names[1:]
 
 # Read in the Scrum high functioning excel sheet
 mediumFunctioningDF = [pd.read_excel(xls4, sheet) for sheet in xls4.sheet_names]
-metrics_4 = mediumFunctioningDF.pop(5) ## Remove the Metrics sheet from the dataframe
-sim_names4 = xls4.sheet_names[1:]
+mediumFunctioningMetrics = mediumFunctioningDF.pop(5) ## Remove the Metrics sheet from the dataframe
+print(highFunctioningMetrics)
+medFunctioningDFNames = xls4.sheet_names[1:]
 
 
 
@@ -34,10 +36,10 @@ def rn(df, suffix = '-duplicate-'):
 
 
 ## Function to clean each Agile excel sheet dataframe
-def clean_sim_scrum_data(sim_df):
+def clean_sim_scrum_data(simDF):
   
   # Remove the unneeded Date and Role columns
-  sim_df = sim_df.drop(columns=["Date", "Role"])
+  simDF = simDF.drop(columns=["Date", "Role"])
 
 
   # Encode the names to numbers
@@ -52,41 +54,41 @@ def clean_sim_scrum_data(sim_df):
     'Zara': 8
   }
 
-  sim_df['Name'] = sim_df['Name'].map(team_names)
+  simDF['Name'] = simDF['Name'].map(team_names)
 
 
   # Remove the names from the chat logs
-  sim_df['Message'] = sim_df['Message'].str.replace(r'^[^:]*:', '', regex=True)
+  simDF['Message'] = simDF['Message'].str.replace(r'^[^:]*:', '', regex=True)
 
   # Reorder the columns
   column_order = ['Name', 'Timestamp', 'Message', 'Sprint', 'TSA']
-  sim_df = sim_df[column_order]
+  simDF = simDF[column_order]
 
 
   
-  return sim_df
+  return simDF
 
 
-def reorder_scrum_sims(sim_df):
+def reorder_scrum_sims(simDF):
   
   reordered_sims = {}
-  reordered_sims[0]=pd.DataFrame(columns=sim_df[0].columns)
-  reordered_sims[1]=pd.DataFrame(columns=sim_df[1].columns)
-  reordered_sims[2]=pd.DataFrame(columns=sim_df[2].columns)
-  reordered_sims[3]=pd.DataFrame(columns=sim_df[3].columns)
+  reordered_sims[0]=pd.DataFrame(columns=simDF[0].columns)
+  reordered_sims[1]=pd.DataFrame(columns=simDF[1].columns)
+  reordered_sims[2]=pd.DataFrame(columns=simDF[2].columns)
+  reordered_sims[3]=pd.DataFrame(columns=simDF[3].columns)
 
-  for i in range(len(sim_df)):
-    print(sim_df[i])
+  for i in range(len(simDF)):
+    print(simDF[i])
     ## Reorganize the sheets to separate Agile Ceremonies by sprint 
     # Create empty dataframes with the same columns
-    sprint1 = pd.DataFrame(columns=sim_df[i].columns)
-    sprint2 = pd.DataFrame(columns=sim_df[i].columns)
-    sprint3 = pd.DataFrame(columns=sim_df[i].columns)
-    sprint4 = pd.DataFrame(columns=sim_df[i].columns)
+    sprint1 = pd.DataFrame(columns=simDF[i].columns)
+    sprint2 = pd.DataFrame(columns=simDF[i].columns)
+    sprint3 = pd.DataFrame(columns=simDF[i].columns)
+    sprint4 = pd.DataFrame(columns=simDF[i].columns)
     
     # Check for what sprint the line belongs too
     # Loop through each row and add to the right dataframe
-    for _, row in sim_df[i].iterrows():
+    for _, row in simDF[i].iterrows():
         if row['Sprint'] == 1:
             sprint1 = pd.concat([sprint1, pd.DataFrame([row])], ignore_index=True)
         elif row['Sprint'] == 2:
@@ -113,37 +115,43 @@ def reorder_scrum_sims(sim_df):
 
 ## Function to add all the simulations together
 # def add_simulations(simulations_df):
-#     key = len(scrum_simulations)
+#     key = len(scrumSimulations)
 #     new_entries = {key + i: df.copy() for i, df in enumerate(sims_3_clean)}
-#     scrum_simulations.update(new_entries)
+#     scrumSimulations.update(new_entries)
 #     return simulations_df
 
-def add_simulations(simulations_df):
-  key=len(scrum_simulations)
-  for i in range(len(simulations_df)):
-    print(scrum_simulations)
-    scrum_simulations[i + key] = pd.DataFrame(columns=simulations_df[i].columns)
-    scrum_simulations[i + key] = pd.concat([scrum_simulations[i + key], simulations_df[i]], ignore_index=True)
+def add_simulations(simulationsDF):
+  key=len(scrumSimulations)
+  for i in range(len(simulationsDF)):
+    print(scrumSimulations)
+    scrumSimulations[i + key] = pd.DataFrame(columns=simulationsDF[i].columns)
+    scrumSimulations[i + key] = pd.concat([scrumSimulations[i + key], simulationsDF[i]], ignore_index=True)
   
-  return scrum_simulations
+  return scrumSimulations
 
-def assign_performance_rank(sim_df, performace_level):
-   ## Assign a Scrum performance rank to the dataframe
+def assign_performance_rank(simDF, performanceMetrics):
+  print("entering performance rank\n")
+  ## Assign a Scrum performance rank to the dataframe
 
-   # 1 = Low Functioning
-   # 2 = Med Functioning
-   # 3 = High Functioning
-    
+  # 1 = Low Functioning
+  # 2 = Med Functioning
+  # 3 = High Functioning
 
-   performance_map = {
+  for i in performanceMetrics:
+    print(performanceMetrics[i])
+  
+
+  performace_level="high"
+
+  performance_map = {
       "low": 1,
       "medium": 2,
       "high": 3
-   }
+  }
 
-   sim_df = sim_df.copy()
+  simDF = simDF.copy()
 
-   sim_df["Performance Rank"] = performance_map[performace_level.lower()]
+  simDF["Performance Rank"] = performance_map[performace_level.lower()]
 
 
 # clean the agile sims high functioning
@@ -159,7 +167,7 @@ for i in range(len(highFunctioningDF)):
 # reorder the sim columns
 highFunctioningDFClean = reorder_scrum_sims(highFunctioningDFClean)
 
-highFunctioningDFClean = assign_performance_rank(highFunctioningDFClean, "high")
+highFunctioningDFClean = assign_performance_rank(highFunctioningDFClean, highFunctioningMetrics)
 #print(highFunctioningDFClean)
 
 
@@ -167,19 +175,19 @@ highFunctioningDFClean = assign_performance_rank(highFunctioningDFClean, "high")
 mediumFunctioningDFClean = mediumFunctioningDF
 for i in range(len(mediumFunctioningDF)):
   try:
-    mediumFunctioningDFClean[sim_names4[i]] = clean_sim_scrum_data(mediumFunctioningDF[i])
+    mediumFunctioningDFClean[medFunctioningDFNames[i]] = clean_sim_scrum_data(mediumFunctioningDF[i])
   except Exception as e:
     print("\n")
-    #print(i, sim_names4[i], e)
+    #print(i, medFunctioningDFNames[i], e)
     #print(sims_4[i])
 
 # reorder the sim columns
 mediumFunctioningDFClean = reorder_scrum_sims(mediumFunctioningDFClean)
 
-scrum_simulations = {}
+scrumSimulations = {}
 
-scrum_simulations = add_simulations(highFunctioningDFClean)
-scrum_simulations = add_simulations(mediumFunctioningDFClean)
+scrumSimulations = add_simulations(highFunctioningDFClean)
+scrumSimulations = add_simulations(mediumFunctioningDFClean)
 
 
 
@@ -190,4 +198,4 @@ scrum_simulations = add_simulations(mediumFunctioningDFClean)
 
 ## open the .pickle file and dump the clean data into it
 with open("clean_data_scrum.pickle", 'wb') as handle:
-    pickle.dump(scrum_simulations, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    pickle.dump(scrumSimulations, handle, protocol=pickle.HIGHEST_PROTOCOL)
