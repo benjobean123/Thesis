@@ -129,6 +129,32 @@ def add_simulations(simulationsDF):
   
   return scrumSimulations
 
+def calculate_performace_rank(performanceMetrics):
+
+# load metric sections into variables
+  sprints = performanceMetrics["Sprint"]
+  goals = performanceMetrics["Sprint Goal Completion"]
+
+# Perform processing to allow goals met to be a numerical value
+  for i in goals:
+    if i == "Yes":
+      goalsMet = 0
+      goalsMet += 1
+
+  for i in sprints:
+    totalSprints = 0
+    totalSprints += 1
+
+  completion = goalsMet/totalSprints
+
+  if completion <= 0.5:
+    return "low"
+  elif completion < 1:
+    return "medium"
+  else:
+    return "high"
+    
+
 def assign_performance_rank(simDF, performanceMetrics):
   print("entering performance rank\n")
   ## Assign a Scrum performance rank to the dataframe
@@ -139,11 +165,13 @@ def assign_performance_rank(simDF, performanceMetrics):
 
   for i in performanceMetrics:
     print(performanceMetrics[i])
+
+  performaceLevel=calculate_performace_rank(performanceMetrics)
   
 
-  performace_level="high"
+ 
 
-  performance_map = {
+  performanceMap = {
       "low": 1,
       "medium": 2,
       "high": 3
@@ -151,7 +179,7 @@ def assign_performance_rank(simDF, performanceMetrics):
 
   simDF = simDF.copy()
 
-  simDF["Performance Rank"] = performance_map[performace_level.lower()]
+  simDF["Performance Rank"] = performanceMap[performaceLevel.lower()]
 
 
 # clean the agile sims high functioning
